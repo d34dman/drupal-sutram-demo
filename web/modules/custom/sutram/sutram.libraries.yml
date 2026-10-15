@@ -17,3 +17,13 @@ drupal:
   dependencies:
     - core/drupalSettings
     - sutram/sutram
+
+# The form provider: form <form-id> status, fields, get, set, save, discard.
+# Attached by content entity forms (SutramForms).
+form:
+  js:
+    js/sutram.form.js: { attributes: { type: module }, preprocess: false }
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - sutram/sutram

@@ -4,7 +4,7 @@
  *
  * - nav: the menus chosen in Sutram's settings, already access-checked for
  *   the current user on the server (drupalSettings.sutram.menus).
- * - page: what this page is (drupalSettings.sutram.page).
+ * - page: what this page is (drupalSettings.sutram.page), and its forms.
  *
  * Loaded as an ES module after sutram/sutram, which defines globalThis.Sutram.
  */
@@ -13,6 +13,7 @@ const { register, mountConsole, CommandError, EXIT } = globalThis.Sutram;
 const settings = (globalThis.drupalSettings && globalThis.drupalSettings.sutram) || {};
 const menus = settings.menus || {};
 const page = settings.page || {};
+const formIds = Object.keys(settings.forms || {});
 const NONE = { type: "object", properties: {} };
 const menuNames = Object.keys(menus);
 
@@ -182,7 +183,7 @@ if (menuNames.length) {
 register({
   name: "page status",
   provider: "page",
-  description: "Show what this page is: its title, route and the entity it shows",
+  description: "Show what this page is: its title, route, the entity it shows, and its forms",
   input: NONE,
   output: {
     type: "object",
@@ -191,6 +192,7 @@ register({
       path: { type: "string" },
       route: { type: "string" },
       entity: { type: "object", properties: { type: { type: "string" }, id: { type: "string" }, bundle: { type: "string" }, label: { type: "string" } } },
+      forms: { type: "array", items: { type: "string" }, description: "Ids of the forms that have form <id> commands" },
     },
   },
   annotations: { readOnly: true },
@@ -198,9 +200,10 @@ register({
   run() {
     const e = page.entity;
     const what = e ? ` It shows ${e.type} ${e.id} (${e.bundle}): "${e.label}".` : "";
+    const formsText = formIds.length ? ` Forms: ${formIds.map((id) => `form ${id}`).join(", ")}; see help form.` : "";
     return {
-      text: `"${page.title || document.title}", route ${page.route}.${what}`,
-      data: { title: page.title || document.title, path: here(), route: page.route, ...(e ? { entity: { ...e, id: String(e.id) } } : {}) },
+      text: `"${page.title || document.title}", route ${page.route}.${what}${formsText}`,
+      data: { title: page.title || document.title, path: here(), route: page.route, ...(e ? { entity: { ...e, id: String(e.id) } } : {}), forms: formIds },
     };
   },
 });

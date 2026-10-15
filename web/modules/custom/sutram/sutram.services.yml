@@ -3,3 +3,5 @@ services:
     autowire: true
   Drupal\sutram\SutramPage:
     autowire: true
+  Drupal\sutram\SutramForms:
+    autowire: true

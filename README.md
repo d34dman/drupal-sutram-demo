@@ -50,6 +50,17 @@ Open the site, log in, and press <kbd>`</kbd> (outside text fields) or
 › man nav go
 ```
 
+On `/node/add/article`:
+
+```
+› form node-article-form fields
+› form node-article-form set title Pour-over, step by step
+› form node-article-form set body.value <p>Rinse the filter first.</p>
+› form node-article-form set field_tags coffee, v60
+› form node-article-form status
+› form node-article-form save
+```
+
 ## What the module does
 
 - **Loads Sutram** on every page for users with the *Use the Sutram console*
@@ -59,7 +70,17 @@ Open the site, log in, and press <kbd>`</kbd> (outside text fields) or
   as the menu block does, so people and agents only see links the user could
   already click. Commands: `nav status`, `nav tree`, `nav find`, `nav go`.
 - **`page` provider:** `page status` says what the current page is: its title,
-  route, and the entity it shows.
+  route, the entity it shows, and its forms.
+- **Form provider:** every content entity add and edit form gets commands
+  named after the form, such as `form node-article-form`:
+  `status` (unsaved changes and the errors of the last save), `fields`, `get`,
+  `set`, `save` and `discard`. Fields are dotted paths that follow the entity:
+  `title`, `body.value`, `body.summary`, `field_tags`, `path.alias`, `status`.
+  The server describes the fields; the module's script fills the real inputs
+  (and CKEditor), so the form on the page and the commands always agree.
+  Nothing reaches Drupal until `save`, which submits the real form: Drupal
+  validates, checks access and runs its hooks as usual. Dates, files and
+  fields with several values are listed but cannot be set yet.
 
 Sutram adds no way into the server. Commands run in the browser with the
 user's session and can do only what the user can already do on the page.
