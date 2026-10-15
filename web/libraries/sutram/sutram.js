@@ -1,6 +1,6 @@
-// sutram 0.2.0: src/browser.js bundled by scripts/build.mjs. Do not edit; run npm run build.
+// @d34dman/sutram 0.2.0: src/browser.js bundled by scripts/build.mjs. Do not edit; run npm run build.
 
-// https://github.com/d34dman/sutram · GPL-2.0-or-later
+// https://github.com/d34dman/sutram · MIT
 
 // src/formats.js
 const __formats = (() => {
@@ -359,7 +359,7 @@ const { CommandError, EXIT, RESERVED_WORDS, CLIENT_OPTIONS } = __core;
 /**
  * Splits a line into words. Double and single quotes group words, and a
  * backslash escapes the next character outside single quotes.
- * Each token is { value, quoted }.
+ * Each token is { value, quoted }; quoted means the word starts with a quote.
  */
 function tokenize(line) {
   const tokens = [];
@@ -378,7 +378,9 @@ function tokenize(line) {
       continue;
     }
     if (!current) current = { value: "", quoted: false };
-    if (ch === '"' || ch === "'") { quote = ch; current.quoted = true; continue; }
+    // A word is quoted, and so never an option, when it starts with a quote:
+    // --who="Grace Hopper" is an option with a quoted value.
+    if (ch === '"' || ch === "'") { quote = ch; if (!current.value) current.quoted = true; continue; }
     if (ch === "\\" && i + 1 < line.length) { current.value += line[++i]; continue; }
     current.value += ch;
   }
@@ -519,7 +521,7 @@ function highlight(registry, line) {
       if (ch === quote) quote = null;
       else if (ch === "\\" && quote === '"' && i + 1 < line.length) w.value += line[++i];
       else w.value += ch;
-    } else if (ch === '"' || ch === "'") { quote = ch; w.quoted = true; }
+    } else if (ch === '"' || ch === "'") { quote = ch; if (i === w.start) w.quoted = true; }
     else if (ch === "\\" && i + 1 < line.length) w.value += line[++i];
     else w.value += ch;
   }
@@ -961,7 +963,7 @@ return { sentence, formatValue, formatTable, formatResult, checkFields, selectFi
 const __index = (() => {
 // sutram: the registry, the command line parser and the formatter.
 // No DOM. The console, the WebMCP bridge and events are separate entry points:
-//   sutram/console, sutram/webmcp, sutram/events, sutram/browser
+//   @d34dman/sutram/console, /webmcp, /events, /browser
 
 const { EXIT, RESERVED_WORDS, CLIENT_OPTIONS, CommandError, createRegistry, getRegistry, checkInput, checkOutput, deref, isStatusCommand, runStatus } = __core;
 const { tokenize, parse, suggest, distance, highlight } = __parse;
