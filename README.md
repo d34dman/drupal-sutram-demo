@@ -17,9 +17,24 @@ Needs DDEV. The sutram package is committed as a build in
 scripts/setup.sh
 ```
 
-That starts DDEV, installs Composer and npm dependencies, installs Drupal with
-the standard profile (`admin` / `admin`), enables `sutram`, adds some demo pages
-to the main menu, and prints a login link.
+That starts DDEV, installs Composer dependencies, installs Drupal from the
+configuration in `config/sync` (`admin` / `admin`), adds some demo pages to the
+main menu, and prints a login link.
+
+## Configuration
+
+The site's configuration lives in `config/sync` (set in
+`web/sites/default/settings.php`). It is the standard profile plus the core
+recipes `page_content_type` and `article_tags` (Drupal 11.4's standard profile
+no longer creates content types), with `sutram` enabled. After changing
+configuration on your site, export and commit it:
+
+```sh
+ddev drush config:export -y
+```
+
+After pulling someone else's changes, import them with
+`ddev drush config:import -y`.
 
 Open the site, log in, and press <kbd>`</kbd> (outside text fields) or
 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>K</kbd>:

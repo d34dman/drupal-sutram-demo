@@ -5,8 +5,8 @@ cd "$(dirname "$0")/.."
 
 ddev start
 ddev composer install
-ddev drush site:install standard -y --site-name="Sutram demo" --account-name=admin --account-pass=admin
-ddev drush pm:install sutram -y
+# Installs from the exported configuration in config/sync.
+ddev drush site:install --existing-config -y --account-name=admin --account-pass=admin
 ddev drush php:script scripts/seed.php
 ddev drush cache:rebuild
 echo

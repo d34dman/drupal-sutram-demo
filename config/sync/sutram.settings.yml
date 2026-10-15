@@ -1,0 +1,9 @@
+_core:
+  default_config_hash: w9NaKq_imi56lE64mKU5feC8XUBKLpV9GgkDGvzrQXY
+menus:
+  -
+    menu: main
+    depth: 3
+  -
+    menu: admin
+    depth: 4
