@@ -5,7 +5,7 @@ sutram:
   version: 0.2.0
   remote: https://github.com/d34dman/sutram
   license:
-    name: MIT
+    name: MIT OR GPL-2.0-or-later
     url: https://github.com/d34dman/sutram/blob/main/LICENSE
     gpl-compatible: true
   js:
