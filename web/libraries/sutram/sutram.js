@@ -1,4 +1,4 @@
-// @d34dman/sutram 0.2.0: src/browser.js bundled by scripts/build.mjs. Do not edit; run npm run build.
+// @d34dman/sutram 0.2.1: src/browser.js bundled by scripts/build.mjs. Do not edit; run npm run build.
 
 // https://github.com/d34dman/sutram · (MIT OR GPL-2.0-or-later)
 

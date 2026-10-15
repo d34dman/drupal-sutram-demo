@@ -2,7 +2,7 @@
 # web/libraries/sutram (refresh with npm run sutram:update). Loaded as a
 # module, outside aggregation.
 sutram:
-  version: 0.2.0
+  version: 0.2.1
   remote: https://github.com/d34dman/sutram
   license:
     name: MIT OR GPL-2.0-or-later
