@@ -5,7 +5,6 @@ cd "$(dirname "$0")/.."
 
 ddev start
 ddev composer install
-npm install                      # copies the sutram package into web/libraries/sutram
 ddev drush site:install standard -y --site-name="Sutram demo" --account-name=admin --account-pass=admin
 ddev drush pm:install sutram -y
 ddev drush php:script scripts/seed.php

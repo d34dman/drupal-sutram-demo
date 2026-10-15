@@ -6,9 +6,12 @@
 /web/profiles/contrib/
 /recipes/
 
-# Copied by npm install (scripts/copy-sutram.mjs)
 /node_modules/
-/web/libraries/
+
+# Front-end libraries. sutram is a committed copy of the package
+# (npm run sutram:update refreshes it).
+/web/libraries/*
+!/web/libraries/sutram/
 
 # Scaffolded by Composer; kept out so updates stay clean
 /web/.csslintrc

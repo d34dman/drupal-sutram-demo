@@ -10,8 +10,8 @@ moves to drupal.org as `drupal/sutram`.
 
 ## Set up
 
-Needs DDEV, Node.js 20 or later, and SSH access to `d34dman/sutram` on GitHub
-(npm installs the package from there until it is published).
+Needs DDEV. The sutram package is committed as a build in
+`web/libraries/sutram`, so neither npm nor GitHub access is needed.
 
 ```sh
 scripts/setup.sh
@@ -78,13 +78,17 @@ Sutram.register({
 See the [package README](https://github.com/d34dman/sutram#register-a-command)
 for the full definition: output schemas, positional arguments, examples.
 
-## Work on the package at the same time
+## Update the sutram package
 
-With a `sutram` checkout next to this one (as in the Sutram workspace):
+The package and this demo change independently: the demo runs the build
+committed in `web/libraries/sutram/sutram.js`, and `SOURCE` next to it names
+the package commit it was built from. To take a newer package, with a `sutram`
+checkout next to this one (as in the Sutram workspace) and Node.js 20 or later:
 
 ```sh
-npm run sutram:local    # copies ../sutram into web/libraries/sutram
+npm run sutram:update   # builds ../sutram and copies dist/sutram.js here
 ```
 
-Run it again after each change; no Drupal cache clear is needed for JavaScript
-changes, only a browser reload.
+Reload the browser; JavaScript changes need no Drupal cache clear. Commit the
+new build when the demo works with it. `SUTRAM_SRC=<path>` builds another
+checkout.

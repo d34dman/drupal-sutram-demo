@@ -1,12 +1,8 @@
 {
   "name": "drupal-sutram-demo",
   "private": true,
-  "description": "Brings the sutram npm package into Drupal's web/libraries.",
+  "description": "Refreshes the committed build of the sutram package in web/libraries/sutram.",
   "scripts": {
-    "postinstall": "node scripts/copy-sutram.mjs",
-    "sutram:local": "SUTRAM_SRC=../sutram node scripts/copy-sutram.mjs"
-  },
-  "dependencies": {
-    "sutram": "git+ssh://git@github.com/d34dman/sutram.git#main"
+    "sutram:update": "node scripts/copy-sutram.mjs"
   }
 }
