@@ -1,0 +1,33 @@
+# Built by Composer
+/vendor/
+/web/core/
+/web/modules/contrib/
+/web/themes/contrib/
+/web/profiles/contrib/
+/recipes/
+
+# Copied by npm install (scripts/copy-sutram.mjs)
+/node_modules/
+/web/libraries/
+
+# Scaffolded by Composer; kept out so updates stay clean
+/web/.csslintrc
+/web/.eslintignore
+/web/.eslintrc.json
+/web/.ht.router.php
+/web/.htaccess
+/web/INSTALL.txt
+/web/README.md
+/web/autoload.php
+/web/autoload_runtime.php
+/web/example.gitignore
+/web/index.php
+/web/robots.txt
+/web/update.php
+/web/web.config
+/web/sites/*
+!/web/sites/default/
+/web/sites/default/*
+!/web/sites/default/settings.php
+
+.DS_Store

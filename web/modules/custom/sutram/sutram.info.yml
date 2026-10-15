@@ -1,0 +1,6 @@
+name: Sutram
+type: module
+description: 'Exposes Drupal to Sutram: menus as commands for people in the Sutram console and for AI agents through WebMCP.'
+package: Development
+core_version_requirement: ^11.1
+configure: sutram.settings

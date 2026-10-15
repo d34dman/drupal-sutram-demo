@@ -1,0 +1,18 @@
+# The sutram npm package, copied to web/libraries/sutram by `npm install`
+# at the project root. Plain ES modules, so no aggregation.
+sutram:
+  version: 0.1.0
+  remote: https://github.com/d34dman/sutram
+  license:
+    name: GPL-2.0-or-later
+    gpl-compatible: true
+  js:
+    /libraries/sutram/src/browser.js: { attributes: { type: module }, preprocess: false, minified: true }
+
+# Drupal's own providers: nav (menus) and page.
+drupal:
+  js:
+    js/sutram.drupal.js: { attributes: { type: module }, preprocess: false }
+  dependencies:
+    - core/drupalSettings
+    - sutram/sutram

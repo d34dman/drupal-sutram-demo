@@ -1,0 +1,7 @@
+use sutram:
+  title: 'Use the Sutram console'
+  description: 'Load Sutram on pages: the console, and the WebMCP tools for agents. Commands can only do what the user can already do on that page.'
+administer sutram:
+  title: 'Administer Sutram'
+  description: 'Choose which menus Sutram exposes.'
+  restrict access: true

@@ -1,0 +1,7 @@
+sutram.settings:
+  path: '/admin/config/development/sutram'
+  defaults:
+    _form: '\Drupal\sutram\Form\SettingsForm'
+    _title: 'Sutram'
+  requirements:
+    _permission: 'administer sutram'

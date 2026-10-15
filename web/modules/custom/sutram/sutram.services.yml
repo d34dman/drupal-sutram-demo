@@ -1,0 +1,5 @@
+services:
+  Drupal\sutram\SutramMenus:
+    autowire: true
+  Drupal\sutram\SutramPage:
+    autowire: true
