@@ -33,6 +33,9 @@ module:
   path: 0
   path_alias: 0
   sutram: 0
+  sutram_demo_form: 0
+  sutram_demo_nav: 0
+  sutram_demo_page: 0
   system: 0
   taxonomy: 0
   text: 0

@@ -1,8 +1,0 @@
-{
-  "name": "drupal-sutram-demo",
-  "private": true,
-  "description": "Refreshes the committed build of the sutram package in web/libraries/sutram.",
-  "scripts": {
-    "sutram:update": "node scripts/copy-sutram.mjs"
-  }
-}

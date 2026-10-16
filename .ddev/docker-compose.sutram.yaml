@@ -1,0 +1,7 @@
+# The drupal/sutram module, from the checkout next to this one
+# (apps/drupal-sutram in the Sutram workspace), so the demo runs the module
+# as it is being developed. DDEV only sees this folder otherwise.
+services:
+  web:
+    volumes:
+      - ../../drupal-sutram:/var/www/html/web/modules/contrib/sutram

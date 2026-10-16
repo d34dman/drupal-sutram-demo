@@ -3,6 +3,12 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
+if [ ! -f ../drupal-sutram/sutram.info.yml ]; then
+  echo "The drupal/sutram module must be checked out next to this repository, in ../drupal-sutram." >&2
+  echo "  git clone -b 1.x git@git.drupal.org:project/sutram.git ../drupal-sutram" >&2
+  exit 1
+fi
+
 ddev start
 ddev composer install
 # Installs from the exported configuration in config/sync.

@@ -1,5 +1,0 @@
-sutram.settings:
-  title: Sutram
-  description: 'Choose which menus the Sutram console and AI agents can browse.'
-  parent: system.admin_config_development
-  route_name: sutram.settings

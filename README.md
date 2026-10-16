@@ -4,14 +4,25 @@ A Drupal 11 site that connects Drupal to [Sutram](https://github.com/d34dman/sut
 the npm package that lets JavaScript apps expose their commands to people in a
 console and to AI agents through WebMCP.
 
-The connection is the custom module `sutram`
-([web/modules/custom/sutram](web/modules/custom/sutram)). Once it settles, it
-moves to drupal.org as `drupal/sutram`.
+The connection is the [`drupal/sutram`](https://www.drupal.org/project/sutram)
+module and its demo submodules (`sutram_demo_nav`, `sutram_demo_page`,
+`sutram_demo_form`). The demo runs the module from a checkout next to this one,
+so changes to the module show up here at once.
 
 ## Set up
 
-Needs DDEV. The sutram package is committed as a build in
-`web/libraries/sutram`, so neither npm nor GitHub access is needed.
+Needs DDEV, and the module checked out next to this repository, as in the
+Sutram workspace:
+
+```
+apps/
+  drupal-sutram/        git.drupalcode.org/project/sutram (branch 1.x)
+  drupal-sutram-demo/   this repository
+```
+
+`.ddev/docker-compose.sutram.yaml` mounts `../drupal-sutram` at
+`web/modules/contrib/sutram`. The module ships the Sutram library itself, so
+neither npm nor a CDN is needed.
 
 ```sh
 scripts/setup.sh
@@ -61,70 +72,33 @@ On `/node/add/article`:
 › form node-article-form save
 ```
 
-## What the module does
+## What the modules do
 
-- **Loads Sutram** on every page for users with the *Use the Sutram console*
-  permission: the console, and WebMCP tools when the browser supports WebMCP.
-- **`nav` provider:** the menus chosen at *Configuration › Development ›
-  Sutram* (main and admin by default). The server checks access for each link
-  as the menu block does, so people and agents only see links the user could
-  already click. Commands: `nav status`, `nav tree`, `nav find`, `nav go`.
-- **`page` provider:** `page status` says what the current page is: its title,
-  route, the entity it shows, and its forms.
-- **Form provider:** every content entity add and edit form gets commands
-  named after the form, such as `form node-article-form`:
-  `status` (unsaved changes and the errors of the last save), `fields`, `get`,
-  `set`, `save` and `discard`. Fields are dotted paths that follow the entity:
-  `title`, `body.value`, `body.summary`, `field_tags`, `path.alias`, `status`.
-  The server describes the fields; the module's script fills the real inputs
-  (and CKEditor), so the form on the page and the commands always agree.
-  Nothing reaches Drupal until `save`, which submits the real form: Drupal
-  validates, checks access and runs its hooks as usual. Dates, files and
-  fields with several values are listed but cannot be set yet.
+See the [module README](https://git.drupalcode.org/project/sutram/-/blob/1.x/README.md):
+the core module loads Sutram and opens the console for users with the *Use
+Sutram* permission; the demo submodules add `nav`, `page status` and `form`
+commands.
 
-Sutram adds no way into the server. Commands run in the browser with the
-user's session and can do only what the user can already do on the page.
+## Tests and checks
 
-## Add commands from another module
-
-Define a library that depends on `sutram/sutram`, attach it where the commands
-make sense, and register them:
-
-```yaml
-# mymodule.libraries.yml
-commands:
-  js:
-    js/mymodule.sutram.js: { attributes: { type: module }, preprocess: false }
-  dependencies:
-    - sutram/sutram
-```
-
-```js
-// js/mymodule.sutram.js
-Sutram.register({
-  name: "cache clear",
-  provider: "cache",
-  description: "Clear all caches",
-  input: { type: "object", properties: {} },
-  annotations: { consequential: true },
-  run: async () => { /* call one of your module's own routes */ },
-});
-```
-
-See the [package README](https://github.com/d34dman/sutram#register-a-command)
-for the full definition: output schemas, positional arguments, examples.
-
-## Update the sutram package
-
-The package and this demo change independently: the demo runs the build
-committed in `web/libraries/sutram/sutram.js`, and `SOURCE` next to it names
-the package commit it was built from. To take a newer package, with a `sutram`
-checkout next to this one (as in the Sutram workspace) and Node.js 20 or later:
+The module's tests and Drupal's coding standards run here, against the
+mounted module:
 
 ```sh
-npm run sutram:update   # builds ../sutram and copies dist/sutram.js here
+ddev exec 'SIMPLETEST_DB=mysql://db:db@db/db SIMPLETEST_BASE_URL=http://web \
+  BROWSERTEST_OUTPUT_DIRECTORY=/var/www/html/web/sites/simpletest/browser_output \
+  vendor/bin/phpunit -c web/core/phpunit.xml.dist web/modules/contrib/sutram/tests'
+ddev exec 'vendor/bin/phpcs --standard=Drupal,DrupalPractice \
+  --extensions=php,module,inc,install,yml --ignore=*/lib/* web/modules/contrib/sutram'
 ```
 
-Reload the browser; JavaScript changes need no Drupal cache clear. Commit the
-new build when the demo works with it. `SUTRAM_SRC=<path>` builds another
-checkout.
+## A newer Sutram package
+
+The module ships the package build in `lib/sutram`. To try a package change
+in the demo, update the module's copy from the package checkout:
+
+```sh
+../drupal-sutram/scripts/update-sutram.sh --local ../sutram
+```
+
+Reload the browser; JavaScript changes need no Drupal cache clear.
