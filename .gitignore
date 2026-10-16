@@ -34,3 +34,4 @@
 !/web/sites/default/settings.php
 
 .DS_Store
+.ddev/docker-compose.sutram.yaml

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ac310aeb74deb2b72b0079801595b002",
+    "content-hash": "cba19e854571adde9d85b2e516585d74",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1371,6 +1371,48 @@
                 "source": "https://github.com/drupal/core-recommended/tree/11.4.10"
             },
             "time": "2026-10-14T10:58:06+00:00"
+        },
+        {
+            "name": "drupal/sutram",
+            "version": "dev-1.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/sutram.git",
+                "reference": "5f9faedcbb4723923615236845fd0a5ba93b9b9a"
+            },
+            "require": {
+                "drupal/core": "^11.1"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "1.0.0-alpha1+0-dev",
+                    "datestamp": "1792111845",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "d34dman",
+                    "homepage": "https://www.drupal.org/user/751698"
+                }
+            ],
+            "description": "A standard way for Drupal modules to expose commands to AI agents and people: WebMCP tools, JavaScript for headless browsers, and a terminal-like console.",
+            "homepage": "https://www.drupal.org/project/sutram",
+            "support": {
+                "source": "https://git.drupalcode.org/project/sutram",
+                "issues": "https://www.drupal.org/project/issues/sutram"
+            }
         },
         {
             "name": "drush/drush",
@@ -12381,7 +12423,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": {
+        "drupal/sutram": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {},

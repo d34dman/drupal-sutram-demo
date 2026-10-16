@@ -1,0 +1,8 @@
+# Copy to docker-compose.sutram.yaml to develop the module: mounts the
+# checkout next to this one (apps/drupal-sutram in the Sutram workspace) over
+# the Composer copy in web/modules/contrib/sutram. DDEV only sees this folder
+# otherwise. See README.md, "Developing the module".
+services:
+  web:
+    volumes:
+      - ../../drupal-sutram:/var/www/html/web/modules/contrib/sutram

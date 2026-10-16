@@ -6,23 +6,13 @@ console and to AI agents through WebMCP.
 
 The connection is the [`drupal/sutram`](https://www.drupal.org/project/sutram)
 module and its demo submodules (`sutram_demo_nav`, `sutram_demo_page`,
-`sutram_demo_form`). The demo runs the module from a checkout next to this one,
-so changes to the module show up here at once.
+`sutram_demo_form`), installed with Composer from the module's `1.x-dev`
+branch.
 
 ## Set up
 
-Needs DDEV, and the module checked out next to this repository, as in the
-Sutram workspace:
-
-```
-apps/
-  drupal-sutram/        git.drupalcode.org/project/sutram (branch 1.x)
-  drupal-sutram-demo/   this repository
-```
-
-`.ddev/docker-compose.sutram.yaml` mounts `../drupal-sutram` at
-`web/modules/contrib/sutram`. The module ships the Sutram library itself, so
-neither npm nor a CDN is needed.
+Needs DDEV. The module ships the Sutram library itself, so neither npm nor a
+CDN is needed.
 
 ```sh
 scripts/setup.sh
@@ -92,13 +82,18 @@ ddev exec 'vendor/bin/phpcs --standard=Drupal,DrupalPractice \
   --extensions=php,module,inc,install,yml --ignore=*/lib/* web/modules/contrib/sutram'
 ```
 
-## A newer Sutram package
+## Developing the module
 
-The module ships the package build in `lib/sutram`. To try a package change
-in the demo, update the module's copy from the package checkout:
+To work on the module and see changes here at once, check it out next to this
+repository and mount it over the Composer copy:
 
 ```sh
-../drupal-sutram/scripts/update-sutram.sh --local ../sutram
+git clone -b 1.x git@git.drupal.org:project/sutram.git ../drupal-sutram
+cp .ddev/docker-compose.sutram.yaml.example .ddev/docker-compose.sutram.yaml
+ddev restart
 ```
 
-Reload the browser; JavaScript changes need no Drupal cache clear.
+`.ddev/docker-compose.sutram.yaml` is not committed; delete it and restart to
+go back to the Composer copy. With the mount, a package change can be tried
+too: `../drupal-sutram/scripts/update-sutram.sh --local ../sutram`, then
+reload the browser.
