@@ -54,12 +54,13 @@ Open the site, log in, and press <kbd>`</kbd> (outside text fields) or
 On `/node/add/article`:
 
 ```
-› form node-article-form fields
-› form node-article-form set title Pour-over, step by step
-› form node-article-form set body.value <p>Rinse the filter first.</p>
-› form node-article-form set field_tags coffee, v60
-› form node-article-form status
-› form node-article-form save
+› form list
+› form fields node-article-form
+› form set node-article-form title Pour-over, step by step
+› form set node-article-form body.value <p>Rinse the filter first.</p>
+› form set node-article-form field_tags coffee, v60
+› form status node-article-form
+› form save node-article-form
 ```
 
 ## What the modules do
