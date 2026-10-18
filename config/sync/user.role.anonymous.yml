@@ -7,6 +7,7 @@ dependencies:
   module:
     - filter
     - media
+    - sutram
     - system
 _core:
   default_config_hash: Tus1ZTNXKIOnrennR1hnTbc7wUPBXHTUm5UdCpEhJSk
@@ -16,5 +17,6 @@ weight: 0
 is_admin: false
 permissions:
   - 'access content'
+  - 'use sutram'
   - 'use text format restricted_html'
   - 'view media'
