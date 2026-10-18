@@ -6,8 +6,10 @@ console and to AI agents through WebMCP.
 
 The connection is the [`drupal/sutram`](https://www.drupal.org/project/sutram)
 module and its demo submodules (`sutram_demo_nav`, `sutram_demo_page`,
-`sutram_demo_form`), installed with Composer from the module's `1.x-dev`
-branch.
+`sutram_demo_form`, `sutram_demo_canvas`), installed with Composer from the
+module's `1.x-dev` branch. [Drupal Canvas](https://www.drupal.org/project/canvas)
+is installed too, with three small components to build pages with (heading,
+text and card, in `web/modules/custom/demo_components`).
 
 ## Set up
 
@@ -20,14 +22,15 @@ scripts/setup.sh
 
 That starts DDEV, installs Composer dependencies, installs Drupal from the
 configuration in `config/sync` (`admin` / `admin`), adds some demo pages to the
-main menu, and prints a login link.
+main menu and an empty Canvas page, and prints a login link.
 
 ## Configuration
 
 The site's configuration lives in `config/sync` (set in
 `web/sites/default/settings.php`). It is the standard profile plus the core
 recipes `page_content_type` and `article_tags` (Drupal 11.4's standard profile
-no longer creates content types), with `sutram` enabled. After changing
+no longer creates content types), with `sutram`, its demo submodules and
+Canvas enabled. After changing
 configuration on your site, export and commit it:
 
 ```sh
@@ -38,7 +41,8 @@ After pulling someone else's changes, import them with
 `ddev drush config:import -y`.
 
 Open the site, log in, and press <kbd>`</kbd> (outside text fields) or
-<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>K</kbd>:
+<kbd>Ctrl</kbd>+<kbd>`</kbd> (anywhere). It is the key left of <kbd>1</kbd>,
+so <kbd>^</kbd> on a German keyboard.
 
 ```
 › help
@@ -63,12 +67,30 @@ On `/node/add/article`:
 › form save node-article-form
 ```
 
+In the Canvas editor, on the *Build with Sutram* page
+(`/canvas/editor/canvas_page/<id>`, printed by `scripts/setup.sh`), paste
+these lines into the console. They run as one change, and if one fails the
+others are undone:
+
+```
+canvas page set title "Our coffee"
+canvas add heading --as=top
+canvas set top text "Fresh every week"
+canvas add card --after=top --as=intro
+canvas set intro title "Single origin"
+```
+
+Then `canvas tree` shows the page, and `canvas undo` takes back the last
+change. `canvas publish` is turned on in this demo (*Configuration ›
+Development › Sutram Demo Canvas*); on a real site it is off by default.
+
 ## What the modules do
 
 See the [module README](https://git.drupalcode.org/project/sutram/-/blob/1.x/README.md):
 the core module loads Sutram and opens the console for users with the *Use
 Sutram* permission; the demo submodules add `nav`, `page status` and `form`
-commands.
+commands, and `sutram_demo_canvas` adds `canvas` commands in the Canvas
+editor.
 
 ## Tests and checks
 

@@ -1,0 +1,5 @@
+name: 'Demo components'
+type: module
+description: 'A few plain single-directory components to place in Canvas pages in the Sutram demo.'
+package: Sutram demo
+core_version_requirement: ^11.1

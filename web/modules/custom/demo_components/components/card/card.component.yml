@@ -1,0 +1,30 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Card
+description: A boxed title, text and an optional link.
+props:
+  type: object
+  required:
+    - title
+  properties:
+    title:
+      type: string
+      title: Title
+      examples:
+        - A card
+    body:
+      type: string
+      title: Body
+      examples:
+        - What this card is about.
+    link:
+      type: string
+      format: uri-reference
+      title: Link
+      examples:
+        - /node/1
+    highlighted:
+      type: boolean
+      title: Highlighted
+      default: false
+      examples:
+        - false

@@ -1,0 +1,2 @@
+.demo-card { border: 1px solid #ccc; border-radius: 6px; padding: 1rem; margin: 1rem 0; }
+.demo-card--highlighted { border-color: #4f46e5; background: #eef2ff; }

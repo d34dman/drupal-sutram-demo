@@ -7,11 +7,13 @@ module:
   block: 0
   block_content: 0
   breakpoint: 0
+  canvas: 0
   ckeditor5: 0
   config: 0
   contextual: 0
   datetime: 0
   dblog: 0
+  demo_components: 0
   dynamic_page_cache: 0
   editor: 0
   field: 0
@@ -23,6 +25,8 @@ module:
   layout_builder: 0
   layout_discovery: 0
   link: 0
+  media: 0
+  media_library: 0
   menu_link_content: 0
   menu_ui: 0
   mysql: 0
@@ -33,6 +37,7 @@ module:
   path: 0
   path_alias: 0
   sutram: 0
+  sutram_demo_canvas: 0
   sutram_demo_form: 0
   sutram_demo_nav: 0
   sutram_demo_page: 0
@@ -47,4 +52,5 @@ module:
 theme:
   olivero: 0
   claro: 0
+  canvas_stark: 0
 profile: standard

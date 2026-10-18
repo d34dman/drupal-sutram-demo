@@ -1,0 +1,30 @@
+uuid: 0b1de913-152a-41de-a4f7-44d4fff615c0
+langcode: en
+status: true
+dependencies:
+  module:
+    - demo_components
+active_version: a797bcc5e6feea18
+versioned_properties:
+  active:
+    settings:
+      prop_field_definitions:
+        text:
+          required: true
+          field_type: string
+          field_storage_settings: {  }
+          field_instance_settings: {  }
+          field_widget: string_textfield
+          default_value:
+            -
+              value: 'Some words about this section.'
+          expression: ℹ︎string␟value
+          derived_schema_metadata:
+            string_shape: {  }
+    fallback_metadata:
+      slot_definitions: {  }
+label: Text
+id: sdc.demo_components.text
+provider: demo_components
+source: sdc
+source_local_id: 'demo_components:text'

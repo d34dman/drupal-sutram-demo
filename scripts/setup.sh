@@ -11,4 +11,4 @@ ddev drush php:script scripts/seed.php
 ddev drush cache:rebuild
 echo
 echo "Log in: $(ddev drush user:login)"
-echo "Then press \` (backtick) or Ctrl+Shift+K for the Sutram console."
+echo "Then press \` (the key left of 1) or Ctrl+\` for the Sutram console."

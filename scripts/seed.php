@@ -3,7 +3,8 @@
 /**
  * @file
  * Demo content: a few pages, linked from the main menu with descriptions,
- * so the nav provider has something to show.
+ * so the nav provider has something to show, and an empty Canvas page to
+ * build with the canvas commands.
  *
  * Run with: ddev drush php:script scripts/seed.php
  */
@@ -46,3 +47,16 @@ foreach ($pages as $key => [$title, $description, $parent]) {
 }
 
 echo 'Seeded ' . count($pages) . " pages and main menu links.\n";
+
+$canvas = \Drupal::entityTypeManager()->getStorage('canvas_page');
+if (!$canvas->loadByProperties(['title' => 'Build with Sutram'])) {
+  $canvas->create([
+    'title' => 'Build with Sutram',
+    'description' => 'An empty Canvas page to build from the Sutram console',
+    'path' => ['alias' => '/build-with-sutram'],
+    'status' => FALSE,
+    'owner' => 1,
+  ])->save();
+}
+$id = current($canvas->loadByProperties(['title' => 'Build with Sutram']))->id();
+echo "Canvas page: /canvas/editor/canvas_page/{$id}\n";

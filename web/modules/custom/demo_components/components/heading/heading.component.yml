@@ -1,0 +1,27 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Heading
+description: A section heading.
+props:
+  type: object
+  required:
+    - text
+  properties:
+    text:
+      type: string
+      title: Text
+      examples:
+        - A heading
+    level:
+      type: string
+      title: Level
+      enum:
+        - h2
+        - h3
+        - h4
+      meta:enum:
+        h2: Section
+        h3: Subsection
+        h4: Minor
+      default: h2
+      examples:
+        - h2

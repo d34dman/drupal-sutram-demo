@@ -1,0 +1,11 @@
+uuid: e6051278-2707-4558-b005-3a340fa3aa4d
+langcode: en
+status: true
+dependencies:
+  config:
+    - canvas.component.block.announce_block
+name: Announcements
+configEntityTypeId: component
+weight: 0
+items:
+  - block.announce_block

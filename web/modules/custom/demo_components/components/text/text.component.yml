@@ -1,0 +1,13 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Text
+description: A paragraph of plain text.
+props:
+  type: object
+  required:
+    - text
+  properties:
+    text:
+      type: string
+      title: Text
+      examples:
+        - Some words about this section.

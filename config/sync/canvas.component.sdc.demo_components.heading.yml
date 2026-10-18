@@ -1,0 +1,43 @@
+uuid: 3daa0616-6dbf-4ffd-a701-109250c86ab5
+langcode: en
+status: true
+dependencies:
+  module:
+    - demo_components
+    - options
+active_version: 3b214b0968bd5f9d
+versioned_properties:
+  active:
+    settings:
+      prop_field_definitions:
+        text:
+          required: true
+          field_type: string
+          field_storage_settings: {  }
+          field_instance_settings: {  }
+          field_widget: string_textfield
+          default_value:
+            -
+              value: 'A heading'
+          expression: ℹ︎string␟value
+          derived_schema_metadata:
+            string_shape: {  }
+        level:
+          required: false
+          field_type: list_string
+          field_storage_settings:
+            allowed_values_function: canvas_load_allowed_values_for_component_prop
+          field_instance_settings: {  }
+          field_widget: options_select
+          default_value:
+            -
+              value: h2
+          expression: ℹ︎list_string␟value
+          derived_schema_metadata: {  }
+    fallback_metadata:
+      slot_definitions: {  }
+label: Heading
+id: sdc.demo_components.heading
+provider: demo_components
+source: sdc
+source_local_id: 'demo_components:heading'
