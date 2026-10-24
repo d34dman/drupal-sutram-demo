@@ -39,6 +39,7 @@ module:
   sutram: 0
   sutram_demo_canvas: 0
   sutram_demo_form: 0
+  sutram_demo_messages: 0
   sutram_demo_nav: 0
   sutram_demo_page: 0
   sutram_demo_user: 0
