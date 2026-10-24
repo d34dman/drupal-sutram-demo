@@ -46,6 +46,10 @@ Open the site, log in, and press <kbd>`</kbd> (outside text fields) or
 <kbd>Ctrl</kbd>+<kbd>`</kbd> (anywhere). It is the key left of <kbd>1</kbd>,
 so <kbd>^</kbd> on a German keyboard.
 
+Use the `https://` address that `ddev describe` prints. The console works on
+`http://` too, but browsers offer WebMCP only on secure pages, so agents that
+use the page's WebMCP tools need `https://`.
+
 ```
 › help
 › status
