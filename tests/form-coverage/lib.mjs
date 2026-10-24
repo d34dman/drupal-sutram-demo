@@ -142,10 +142,10 @@ export class Session {
     return Object.fromEntries(r.data.fields.map((f) => [f.field, f]));
   }
 
-  /** form save, then waits for the page that follows. */
+  /** form submit, then waits for the page that follows. */
   async save(form = FORM) {
     const nav = this.page.waitForNavigation({ waitUntil: 'load', timeout: 30000 });
-    const r = await this.ok('form save', { form });
+    const r = await this.ok('form submit', { form });
     await nav;
     await this.ready();
     return r;

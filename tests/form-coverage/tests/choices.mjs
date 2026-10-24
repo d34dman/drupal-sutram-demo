@@ -60,7 +60,7 @@ export async function run() {
         assert.equal(await s.page.evaluate(() => document.querySelector('input[name="field_sf_radios"]:checked')?.value ?? null), '_none', 'clearing checks N/A');
         r = await set(s, 'field_sf_flag', 'on');
         assert.equal(r.data.to, '1');
-        r = await set(s, 'field_sf_flag', '_none');
+        r = await set(s, 'field_sf_flag', '');
         assert.equal(r.data.to, '');
         await set(s, 'field_sf_flag', 'Off');
         await set(s, 'field_sf_radios', 'Light roast');

@@ -218,7 +218,7 @@ export async function run() {
         await set(s, 'field_sf_user', 'Nobody (999999)');
         // Link text without a URL: Drupal's states make the URL required.
         await set(s, 'field_sf_links.0.title', 'Nowhere');
-        const no = await s.call('form save', { form: FORM });
+        const no = await s.call('form submit', { form: FORM });
         assert.equal(no.code, 1);
         assert.match(no.message, /field_sf_links\.0\.uri/);
         await set(s, 'field_sf_links.0.title', '');

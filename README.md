@@ -67,7 +67,7 @@ On `/node/add/article`:
 › form set node-article-form body.value <p>Rinse the filter first.</p>
 › form set node-article-form field_tags coffee, v60
 › form status node-article-form
-› form save node-article-form
+› form submit node-article-form
 ```
 
 In the Canvas editor, on the *Build with Sutram* page

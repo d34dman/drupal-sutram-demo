@@ -4,7 +4,7 @@
 // form upload from text, base64, a same-origin URL, several URLs at once, and
 // from the person (the console's file picker, or the field's own input);
 // refusals in the browser (extension) and on the server (not an image);
-// cross-origin URLs; form save with the alt text missing; save and reopen;
+// cross-origin URLs; form submit with the alt text missing; save and reopen;
 // form remove, form discard putting a removed file back.
 //
 // Cleans up its nodes and the files it uploaded (temporary or permanent).
@@ -106,7 +106,7 @@ export async function run() {
         assert.match(a.filename, /^druplicon(_\d+)?\.png$/);
         assert.equal(a.mime, 'image/png');
         assert.deepEqual(a.paths, ['field_sf_image.alt']);
-        assert.match(r.text, /Required before form save: form set .* field_sf_image\.alt/);
+        assert.match(r.text, /Required before form submit: form set .* field_sf_image\.alt/);
         const f = await s.fields();
         assert.equal(f['field_sf_image.alt'].type, 'string');
         assert.equal(f['field_sf_image.alt'].required, true);
@@ -116,7 +116,7 @@ export async function run() {
       }],
 
       ['save without the required alt text is refused', async () => {
-        const r = await s.call('form save', { form: FORM });
+        const r = await s.call('form submit', { form: FORM });
         assert.equal(r.code, 1);
         assert.match(r.message, /field_sf_image\.alt is required/);
       }],

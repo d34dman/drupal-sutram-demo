@@ -135,7 +135,7 @@ export async function run() {
         }
         const f = await s.fields();
         assert.ok(f.field_sf_image && f['field_sf_files.0'], 'both fields are still listed');
-        // Once the image is there, its alt text is required for form save. The
+        // Once the image is there, its alt text is required for form submit. The
         // upload may also have sent nothing: file.js disables file inputs for a
         // second after any AJAX button. files.mjs tests uploads themselves.
         if (f['field_sf_image.alt']) await s.ok('form set', { form: FORM, field: 'field_sf_image.alt', value: 'A pixel' });
