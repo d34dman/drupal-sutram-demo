@@ -144,13 +144,13 @@ export async function run() {
       ['form remove renumbers, and no stale item lingers', async () => {
         await s.ok('form add', { form: FORM, field: 'field_sf_strings' });
         await s.ok('form set', { form: FORM, field: 'field_sf_strings.2', value: 'three' });
-        const r = await s.ok('form remove', { form: FORM, item: 'field_sf_strings.1' });
+        const r = await s.ok('form remove', { form: FORM, target: 'field_sf_strings.1' });
         assert.equal(r.data.items, 2);
         const f = await s.fields();
         assert.equal(f['field_sf_strings.0'].value, 'one');
         assert.equal(f['field_sf_strings.1'].value, 'three');
         assert.equal(f['field_sf_strings.2'], undefined, 'the removed item is gone');
-        const bad = await s.call('form remove', { form: FORM, item: 'field_sf_strings.7' });
+        const bad = await s.call('form remove', { form: FORM, target: 'field_sf_strings.7' });
         assert.equal(bad.code, 2);
         const single = await s.call('form add', { form: FORM, field: 'field_sf_string' });
         assert.equal(single.code, 2, 'a single value field takes no more items');

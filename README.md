@@ -48,9 +48,9 @@ so <kbd>^</kbd> on a German keyboard.
 ```
 › help
 › status
-› nav tree
-› nav tree admin --depth=3
-› nav find content type
+› nav menu
+› nav menu admin --depth=3
+› nav search content type
 › nav go "Content types"
 › page status --json
 › man nav go

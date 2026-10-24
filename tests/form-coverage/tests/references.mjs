@@ -187,7 +187,7 @@ export async function run() {
         let st = await s.ok('form status', { form: EDIT_FORM });
         assert.deepEqual(st.data.unsaved, [], JSON.stringify(st.data.unsaved));
 
-        await s.ok('form remove', { form: EDIT_FORM, item: 'field_sf_nodes.0' });
+        await s.ok('form remove', { form: EDIT_FORM, target: 'field_sf_nodes.0' });
         let g = await s.fields(EDIT_FORM);
         assert.equal(g['field_sf_nodes.0'].value, `${twin} (${twins[1]})`, 'the items after it move up');
         await set(s, 'field_sf_tags', 'Liberica', EDIT_FORM);

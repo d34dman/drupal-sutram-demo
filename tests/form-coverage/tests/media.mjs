@@ -3,7 +3,7 @@
 //
 // The value and its description, form search through the entity autocomplete
 // endpoint (and that it refuses a key that does not match), form set by
-// label, by id and as Label (id), form pick, the order, removal through the
+// label, by id and as Label (id), form add, the order, removal through the
 // Remove buttons, refusals (a type the field does not take, with the widget
 // empty and not, an unknown id or label), save and reopen, form discard.
 // Too many items cannot be tested here: the field takes any number.
@@ -102,21 +102,21 @@ export async function run() {
         assert.deepEqual(st.data.unsaved.find((c) => c.field === 'field_sf_media'), { field: 'field_sf_media', from: '', to: DRUPLICON });
       }],
 
-      ['form pick by id adds; Drupal refuses another type itself', async () => {
-        const r = await s.ok('form pick', { form: FORM, field: 'field_sf_media', media: String(secondId) });
+      ['form add by id adds; Drupal refuses another type itself', async () => {
+        const r = await s.ok('form add', { form: FORM, field: 'field_sf_media', value: String(secondId) });
         assert.deepEqual(r.data.added, [{ id: String(secondId), label: secondName, type: 'sutram_form_test_image' }]);
         assert.equal(r.data.value, `${DRUPLICON}, ${second}`);
-        const again = await s.call('form pick', { form: FORM, field: 'field_sf_media', media: DRUPLICON });
+        const again = await s.call('form add', { form: FORM, field: 'field_sf_media', value: DRUPLICON });
         assert.equal(again.code, 2);
         assert.match(again.message, /already holds/);
-        const bad = await s.call('form pick', { form: FORM, field: 'field_sf_media', media: wrong });
+        const bad = await s.call('form add', { form: FORM, field: 'field_sf_media', value: wrong });
         assert.equal(bad.code, 1, bad.message);
         assert.match(bad.message, /is not of an accepted type/);
         assert.equal(await get(), `${DRUPLICON}, ${second}`);
-        const missing = await s.call('form pick', { form: FORM, field: 'field_sf_media', media: '999999' });
+        const missing = await s.call('form add', { form: FORM, field: 'field_sf_media', value: '999999' });
         assert.equal(missing.code, 1);
         assert.match(missing.message, /did not add media 999999/);
-        const notMedia = await s.call('form pick', { form: FORM, field: 'title', media: '1' });
+        const notMedia = await s.call('form add', { form: FORM, field: 'title', value: '1' });
         assert.equal(notMedia.code, 2);
       }],
 
@@ -132,7 +132,7 @@ export async function run() {
         assert.deepEqual(weights, [[String(secondId), '0'], ['1', '1']], 'moved, with the weights Drupal saves');
         const r = await s.ok('form set', { form: FORM, field: 'field_sf_media', value: String(secondId) });
         assert.equal(r.data.to, second);
-        await s.ok('form pick', { form: FORM, field: 'field_sf_media', media: 'Druplicon' });
+        await s.ok('form add', { form: FORM, field: 'field_sf_media', value: 'Druplicon' });
         assert.equal(await get(), `${second}, ${DRUPLICON}`);
       }],
 
