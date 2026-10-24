@@ -7,7 +7,7 @@ console and to AI agents through WebMCP.
 The connection is the [`drupal/sutram`](https://www.drupal.org/project/sutram)
 module and its demo submodules (`sutram_demo_nav`, `sutram_demo_page`,
 `sutram_demo_form`, `sutram_demo_canvas`, `sutram_demo_user`,
-`sutram_demo_messages`), installed with
+`sutram_demo_messages`, `sutram_demo_lists`), installed with
 Composer from the module's `1.x-dev` branch. Visitors who are not logged in
 may use Sutram too, so `user login` works for them. [Drupal Canvas](https://www.drupal.org/project/canvas)
 is installed too, with three small components to build pages with (heading,
