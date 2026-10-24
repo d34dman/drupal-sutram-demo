@@ -106,6 +106,16 @@ ddev exec 'vendor/bin/phpcs --standard=Drupal,DrupalPractice \
   --extensions=php,module,inc,install,yml --ignore=*/lib/* web/modules/contrib/sutram'
 ```
 
+`tests/form-coverage` runs the form provider's commands in a real browser
+against this site, on the `sutram_form_test` content type of the hidden test
+module `sutram_demo_form_test` (needs the mounted module and
+`$settings['extension_discovery_scan_tests'] = TRUE`):
+
+```sh
+cd tests/form-coverage && npm install
+node run.mjs            # all groups at once; `node run.mjs files` for one, --serial, --cleanup
+```
+
 ## Developing the module
 
 To work on the module and see changes here at once, check it out next to this
