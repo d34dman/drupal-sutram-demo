@@ -49,6 +49,7 @@ so <kbd>^</kbd> on a German keyboard.
 › help
 › status
 › nav menu
+› nav menu main
 › nav menu admin --depth=3
 › nav search content type
 › nav go "Content types"
