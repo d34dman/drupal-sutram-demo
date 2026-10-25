@@ -121,12 +121,25 @@ export class Session {
     return this.open(`/node/${nid}/edit`);
   }
 
-  /** Runs a command, confirmed, and returns { code, text, data, message }. */
+  /**
+   * Runs a command as an agent would, through Sutram.call(), and returns
+   * { code, text, data, message }. When the page asks first, the test
+   * clicks Yes in the approval dialog, as the person would.
+   */
   call(name, input = {}) {
-    return this.page.evaluate(
-      ([n, i]) => window.Sutram.call(n, i, { confirmed: true }),
-      [name, input],
+    return this.approving(
+      this.page.evaluate(([n, i]) => window.Sutram.call(n, i), [name, input]),
     );
+  }
+
+  /** Clicks Yes in each approval dialog that opens until `pending` settles. */
+  async approving(pending) {
+    const yes = this.page.locator('sutram-approval dialog[open] button.yes');
+    const settled = pending.then(() => true, () => true);
+    while (!(await Promise.race([settled, sleep(100).then(() => false)]))) {
+      if (await yes.isVisible().catch(() => false)) await yes.click().catch(() => {});
+    }
+    return pending;
   }
 
   /** Runs a command and fails unless it exits 0. */

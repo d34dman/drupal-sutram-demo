@@ -193,13 +193,16 @@ export async function run() {
       }],
 
       ['waiting for the person can be cancelled', async () => {
-        const code = await s.page.evaluate(async (form) => {
-          const ctrl = new AbortController();
-          const p = window.Sutram.call('form upload', { form, field: 'field_sf_files' }, { confirmed: true, signal: ctrl.signal });
-          setTimeout(() => ctrl.abort(), 300);
-          return (await p).code === window.Sutram.EXIT.CANCELLED;
-        }, FORM);
-        assert.ok(code, 'cancelled');
+        // The person says yes in the dialog; the agent then gives up while
+        // the command waits in the field.
+        const pending = s.approving(s.page.evaluate((form) => {
+          window.ctrl = new AbortController();
+          return window.Sutram.call('form upload', { form, field: 'field_sf_files' }, { signal: window.ctrl.signal })
+            .then((r) => r.code === window.Sutram.EXIT.CANCELLED);
+        }, FORM));
+        await s.page.waitForFunction(() => document.activeElement?.matches('input[type="file"][name^="files[field_sf_files_"]'));
+        await s.page.evaluate(() => window.ctrl.abort());
+        assert.ok(await pending, 'cancelled');
         // Nothing is left listening: a later upload works as usual.
         await upload({ field: 'field_sf_files', name: 'form-coverage-after.txt', text: 'after' });
       }],
@@ -211,6 +214,9 @@ export async function run() {
           return !!c;
         });
         assert.ok(opened);
+        // The console also shows the agent's uploads above: wait for one more.
+        const uploads = () => s.page.evaluate(() => document.querySelector('sutram-console').transcript().split('Uploaded to').length);
+        const before = await uploads();
         await s.page.keyboard.type(`form upload ${FORM} field_sf_files`);
         await s.page.keyboard.press('Enter');
         // A consequential command asks first; the answer is a key press too.
@@ -221,7 +227,7 @@ export async function run() {
         const fc = await chooser;
         assert.equal(fc.isMultiple(), true, 'a field that takes several takes several at once');
         await fc.setFiles({ name: 'form-coverage-console.txt', mimeType: 'text/plain', buffer: Buffer.from('from the console') });
-        await s.page.waitForFunction(() => /Uploaded to/.test(document.querySelector('sutram-console').transcript()), null, { timeout: 15000 });
+        await s.page.waitForFunction((n) => document.querySelector('sutram-console').transcript().split('Uploaded to').length > n, before, { timeout: 15000 });
         const f = await s.fields();
         const held = Object.values(f).filter((x) => x.type === 'file').map((x) => x.value);
         assert.ok(held.some((v) => v.startsWith('form-coverage-console.txt (')), held.join(' | '));
